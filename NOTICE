@@ -1,0 +1,29 @@
+T7suite-iOS
+Native Swift port workbench, 2026.
+
+Based in part on the formats and algorithms in TuningSuites / T7Suite,
+by the TuningSuites contributors, including Dilemma and Mattias Claesson.
+Original project: https://github.com/mattiasclaesson/TuningSuites
+User-provided source archive: TuningSuites-T7suite_v0.1.59.0.tar.gz
+Archive SHA-256: 78c688d0703ec20dc30e46253e117943c28d1beedbd3707dcc7c2a03c5e74978
+The original archive's Apache License 2.0 is retained in LICENSE.
+
+The Swift symbol decompressor and packed/unpacked symbol readers are rewrites
+of the corresponding CommonSuite and T7Suite algorithms. Changes include
+instance-local decoder state, bounded parsing, explicit malformed-input errors,
+Huffman rescaling correction, and removal of guessed address repair.
+The legacy Saab KWP frame format and T7 footer layout were studied from the
+source archive. The UI, edit model, document handling, tests and Swift types are
+new implementations. Source comments identify relevant references.
+
+The separate mattiasclaesson/Trionic project was consulted as a format and
+checksum reference. No TrionicCANLib DLL or verbatim source file from that
+repository is redistributed here. Further imports require license review.
+
+Original ECU firmware, Windows installers, manuals, vendor DLLs, DevExpress,
+Nevron, Office components and adapter libraries are not included. Their rights
+are not granted by this repository's license. The new bit reader does not copy
+the separately licensed CommonSuite/BitStream.cs implementation.
+
+This is an independent development project, not an official Saab, Apple,
+TxSuite or adapter-vendor product. No certification or endorsement is implied.
