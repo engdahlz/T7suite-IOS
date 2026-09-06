@@ -1,0 +1,19 @@
+.build/
+.swiftpm/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcresult/
+.DS_Store
+# Never commit ECU firmware, VIN-bearing captures, installer payloads or signing material.
+*.bin
+*.BIN
+*.ram
+*.RAM
+*.t7l
+*.t7project
+*.p12
+*.mobileprovision
+*.dll
+*.exe
+*.msi
