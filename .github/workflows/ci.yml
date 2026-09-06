@@ -1,0 +1,32 @@
+name: Swift core and iPhone simulator
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: macos-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Record toolchain
+        run: swift --version && xcodebuild -version
+      - name: Portable core tests
+        run: swift test --enable-code-coverage
+      - name: Build and launch iPhone UI tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          DEVICE=$(xcrun simctl list devices available --json | python3 -c 'import sys,json; d=json.load(sys.stdin); print(next(x["udid"] for group in d["devices"].values() for x in group if "iPhone" in x["name"] and x["isAvailable"]))')
+          xcodebuild -project T7suite.xcodeproj -scheme T7Suite \
+            -destination "platform=iOS Simulator,id=$DEVICE" \
+            -derivedDataPath "$RUNNER_TEMP/T7DerivedData" \
+            -resultBundlePath "$RUNNER_TEMP/T7UITests.xcresult" \
+            CODE_SIGNING_ALLOWED=NO test
