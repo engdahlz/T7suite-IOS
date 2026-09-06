@@ -27,10 +27,12 @@ struct LoadedFirmware: Sendable {
     let symbolIssue: String?
     let xml: Data?
     init(session: EditSession, xml: Data? = nil) throws {
-        self.session = session; footer = try session.image.footer(); self.xml = xml
+        let parsedFooter = try session.image.footer()
+        self.session = session; footer = parsedFooter; self.xml = xml
         do {
             let table = try T7Symbols.parse(session.image)
-            symbols = try xml.map { try T7SymbolXML.applying($0, to: table, software: footer.software) } ?? table
+            if let xml { symbols = try T7SymbolXML.applying(xml, to: table, software: parsedFooter.software) }
+            else { symbols = table }
             symbolIssue = nil
         } catch { symbols = nil; symbolIssue = error.localizedDescription }
     }
