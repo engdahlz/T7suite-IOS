@@ -52,7 +52,7 @@ Två faktiska byggfel hittades och åtgärdades under CI:
 
 Korrigeringarna finns i kodcommit **`68a5e5e324c82f5f61961dfb036cf2b6bbf9f691`** och dess föregångare. Den efterföljande körningen är [GitHub Actions 34030009684](https://github.com/engdahlz/T7suite-IOS/actions/runs/34030009684).
 
-**Senast observerad status:** kärntesterna i denna körning har godkänts. Steget för iPhone-bygge och UI-prov pågår fortfarande vid denna protokollversion; ett godkänt simulatorresultat hävdas därför inte här.
+**Slutligt observerad status:** kärntesterna i denna körning har godkänts. Körning `34030009684` avslutades med **fel i steget för iPhone-bygge och UI-prov**. Ett godkänt simulatorresultat har därför inte verifierats. Felorsaken i denna sista körning är inte fastställd i leveransen; stegets status räcker inte för att skilja ett byggfel från ett simulator-/UI-testfel.
 
 Den tidigare granskade runnern använde Xcode 26.6 (17F113) och en iPhone 17 Pro-simulator med iOS 26.4.1. Workflow väljer en tillgänglig iPhone från runnern, inte ett fast simulator-ID. Projektets lägsta deklarerade iOS-version är 17.0; detta är inte samma sak som att iOS 17 har körtestats.
 
